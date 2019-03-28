@@ -19,8 +19,8 @@ void loop() {
   float sensor = analogRead(A0);
   Serial.println(sensor);
 
-    randomNoise();
-//  bouncePositive();
+//    randomNoise();
+  bouncePositive();
 //  RainbowGrad();
 
 
