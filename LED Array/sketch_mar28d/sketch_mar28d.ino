@@ -2,7 +2,7 @@
 
 #define NUM_LEDS 16
 #define DATA_PIN 3
-#define BRIGHTNESS 20
+#define BRIGHTNESS 10
 #define SENSOR_FLOOR 70
 #define SENSOR_CEIL 600
 
@@ -17,13 +17,35 @@ void setup() {
 
 void loop() {
   float sensor = analogRead(A0);
-  Serial.println(sensor);
+//  Serial.println(sensor);
 
-//    randomNoise();
-  bouncePositive();
+    randomNoise();
+//  bouncePositive();
 //  RainbowGrad();
 
 
+}
+
+void randomNoise() {
+  float sensor = analogRead(A0);
+  int Probability_multiplexer = map(sensor, SENSOR_FLOOR, SENSOR_CEIL, 0, 17);
+  int delay_multiplexer = map(sensor, SENSOR_FLOOR, SENSOR_CEIL, 1, 6);
+  
+  for (int i = 0; i < NUM_LEDS; i++) {
+    int chance = random(Probability_multiplexer,20);
+    
+    Serial.println(chance);
+    
+    if (chance > 15) {
+      leds[i] = CHSV(random(160,210), 255, random(50,255));
+    } else {
+      leds[i] = CRGB(0, 0, 0);
+    }
+
+    FastLED.show();
+    delay(10 - delay_multiplexer);
+  }
+  
 }
 
 void letThereBeLight() {
